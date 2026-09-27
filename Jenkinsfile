@@ -22,3 +22,53 @@ pipeline {
         }
     }
 }
+
+  post {
+    always {
+      archiveArtifacts artifacts: 'reports/**,custom-report/**,allure-results/**', allowEmptyArchive: true
+      junit testResults: 'reports/results.xml', allowEmptyResults: true
+      allure includeProperties: false, results: [[path: 'allure-results']]
+      publishHTML([
+        allowMissing: true,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: 'reports',
+        reportFiles: 'index.html',
+        reportName: 'Playwright HTML Report'
+      ])
+      publishHTML([
+        allowMissing: true,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: 'custom-report',
+        reportFiles: '*.html',
+        reportName: 'Custom Test Report'
+      ])
+      emailext(
+        subject: "Jenkins Build: ${env.JOB_NAME} #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
+        body: """
+            <h2>Playwright Test Execution Report</h2>
+            <p><b>Job:</b> ${env.JOB_NAME}</p>
+            <p><b>Build:</b> #${env.BUILD_NUMBER}</p>
+            <p><b>Status:</b> ${currentBuild.currentResult}</p>
+            <p><b>Test Suite:</b> ${params.TEST_SUITE}</p>
+            <p><b>Browser:</b> ${params.BROWSER}</p>
+            <p>
+              <a href="${env.BUILD_URL}">Open Jenkins Build</a> |
+              <a href="${env.BUILD_URL}Playwright_20HTML_20Report">Open Playwright HTML Report</a> |
+              <a href="${env.BUILD_URL}Custom_20Test_20Report">Open Custom Report</a>
+            </p>
+        """,
+        to: "RECIVER_EMAIL_ADDRESS", //Replace with the recipient's email address
+        from: "SENDER_EMAIL_ADDRESS", //Replace with the sender's email address
+        replyTo: "RECIVER_EMAIL_ADDRESS",  //Replace with the recipient's email address
+        mimeType: "text/html" //Defines the format of the email body. text/html allows HTML formatting (tables, colors, bold text, links, etc.).
+      )
+    }
+    success {
+      script {
+        powershell 'Remove-Item -Recurse -Force allure-results'
+      }
+    }
+  }
+}
