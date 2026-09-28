@@ -1,6 +1,6 @@
 import{test,expect}from '@playwright/test';
 
-const baseURL = 'https://restful-booker.herokuapp.com/';
+const baseURL = 'https://restful-booker.herokuapp.com';
 
 test('API Test', async ({ request }) => {
 
@@ -25,5 +25,10 @@ console.log(response);
 console.log(response.status());
 
 expect(response.status()).toBe(200);
+
+
+
+
+
 
 });     
