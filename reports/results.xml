@@ -1,0 +1,42 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="1.7986739999999999">
+<testsuite name="API.spec.js" timestamp="2026-09-28T14:49:18.626Z" hostname="chromium" tests="1" failures="1" skipped="0" time="1.243" errors="0">
+<testcase name="API Test" classname="API.spec.js" time="1.243">
+<system-out>
+<![CDATA[APIResponse: 404 Not Found
+  Content-Length: 9
+  Content-Type: text/plain; charset=utf-8
+  Date: Mon, 28 Sep 2026 14:49:21 GMT
+  Etag: W/"9-0gXL1ngzMqISxa6S1zx3F4wtLyg"
+  Nel: {"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
+  Report-To: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=hy2Fp8rFVTpc7p%2FtzO57Owx0bh88duewOgHiBCM3CaI%3D\u0026sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add\u0026ts=1790606961"}],"max_age":3600}
+  Reporting-Endpoints: heroku-nel="https://nel.heroku.com/reports?s=hy2Fp8rFVTpc7p%2FtzO57Owx0bh88duewOgHiBCM3CaI%3D&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&ts=1790606961"
+  Server: Heroku
+  Via: 1.1 heroku-router
+  X-Powered-By: Express
+[33m404[39m
+
+[[ATTACHMENT|..\test-results\API-API-Test-chromium\error-context.md]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › API.spec.js:5:5 › API Test ──────────────────────────────────────────────────────────
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 404
+
+      25 | console.log(response.status());
+      26 |
+    > 27 | expect(response.status()).toBe(200);
+         |                           ^
+      28 |
+      29 | });     
+        at C:\Users\PrasanthRV\Downloads\Playwright Automation\tests\API.spec.js:27:27
+
+    Error Context: ..\test-results\API-API-Test-chromium\error-context.md
+]]>
+</failure>
+</testcase>
+</testsuite>
+</testsuites>
